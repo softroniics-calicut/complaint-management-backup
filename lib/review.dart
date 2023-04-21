@@ -28,8 +28,8 @@ var data={
   var res = await post(Uri.parse('http://192.168.0.106/Complaint management/api/view-reviews.php'),body: data);
   print(res.body);
   var result = jsonDecode(res.body);
-  print(result);
-  return result;
+  
+  return result; 
 }
 
 var feed = TextEditingController();
