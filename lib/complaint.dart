@@ -95,6 +95,9 @@ File? pickedImage;
         );
       } else {
         Fluttertoast.showToast(msg: 'Complaint registered');
+        Navigator.push(context, MaterialPageRoute(builder: (context) {
+          return Home();
+        },));
       }
     }else{
       Fluttertoast.showToast(msg: 'Pick image ');

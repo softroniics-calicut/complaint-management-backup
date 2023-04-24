@@ -19,13 +19,13 @@ class _ReviewState extends State<Review> {
   Future<dynamic> getData() async {
 
  SharedPreferences spref = await SharedPreferences.getInstance();
-    var sp = spref.getString('login_id');
+    var sp = spref.getString('log_id');
 
 var data={
   "id":sp,
 };
 
-  var res = await post(Uri.parse('http://192.168.0.106/Complaint management/api/view-reviews.php'),body: data);
+  var res = await post(Uri.parse('http://192.168.0.106/Complaint management/api/view-reviews.php'));
   print(res.body);
   var result = jsonDecode(res.body);
   
@@ -36,7 +36,7 @@ var feed = TextEditingController();
 
 Future<void> addData() async {
   SharedPreferences spref = await SharedPreferences.getInstance();
-    var sp = spref.getString('login_id');
+    var sp = spref.getString('log_id');
  var data = {
   "id":sp,
   "feedback":feed.text,
@@ -72,9 +72,9 @@ Future<void> addData() async {
             itemCount: snap.data.length,
            itemBuilder: (context, index) {
              return ListTile(
-              title: Text(snap.data[index]['review']),
-              subtitle: Text(snap.data[index]['name']),
-              trailing: Text(snap.data[index]['date']),
+              title: Text(snap.data[index]['review'].toString()),
+              subtitle: Text(snap.data[index]['name'].toString()),
+              trailing: Text(snap.data[index]['date'].toString()),
              );
            },
           );
