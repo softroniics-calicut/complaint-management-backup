@@ -15,6 +15,7 @@ class Address extends StatefulWidget {
 }
 
 class _AddressState extends State<Address> {
+  final _formKey = GlobalKey<FormState>();
   var address = TextEditingController();
    Future<void> addData() async {
       SharedPreferences spref = await SharedPreferences.getInstance();
@@ -38,56 +39,68 @@ class _AddressState extends State<Address> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: TextFormField(
-              controller: address,
-              decoration: InputDecoration(border: OutlineInputBorder()),
-              minLines:
-                  6, // any number you need (It works as the rows for the textarea)
-              keyboardType: TextInputType.multiline,
-              maxLines: null,
+      body: Form(
+        key: _formKey,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: TextFormField(
+                validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter your Address';
+                          }
+                          return null;
+                        },
+                controller: address,
+                decoration: InputDecoration(border: OutlineInputBorder(),
+                labelText: 'Address'),
+                minLines:
+                    6, // any number you need (It works as the rows for the textarea)
+                keyboardType: TextInputType.multiline,
+                maxLines: null,
+              ),
             ),
-          ),
-          Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    InkWell(
-                      onTap: () {
-                        addData();
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.all(20.0),
-                        child: Container(
-                          child: Center(
-                              child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                'Next',
-                                style: TextStyle(color: Colors.white),
-                              ),
-                              Icon(
-                                Icons.arrow_right,
-                                color: Colors.white,
-                              )
-                            ],
-                          )),
-                          height: 40,
-                          width: 100,
-                          decoration: BoxDecoration(
-                            color: Color.fromARGB(255, 107, 162, 222),
-                            borderRadius: BorderRadius.circular(50),
+            Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      InkWell(
+                         onTap: () {
+                            if (_formKey.currentState!.validate()) {
+                              addData();
+                            };
+                          },
+                        child: Padding(
+                          padding: const EdgeInsets.all(20.0),
+                          child: Container(
+                            child: Center(
+                                child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  'Next',
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                                Icon(
+                                  Icons.arrow_right,
+                                  color: Colors.white,
+                                )
+                              ],
+                            )),
+                            height: 40,
+                            width: 100,
+                            decoration: BoxDecoration(
+                              color: Color.fromARGB(255, 107, 162, 222),
+                              borderRadius: BorderRadius.circular(50),
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  ],
-                ),
-        ],
+                    ],
+                  ),
+          ],
+        ),
       ),
     );
   }

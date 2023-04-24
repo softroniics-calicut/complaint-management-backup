@@ -16,55 +16,69 @@ class District extends StatefulWidget {
 }
 
 class _DistrictState extends State<District> {
- String dropdownvalue = 'Kozhikode';
-Future<void> getData() async {
-   SharedPreferences spref = await SharedPreferences.getInstance();
+  final _formKey = GlobalKey<FormState>();
+  String dropdownvalue = 'Kozhikode';
+  Future<void> getData() async {
+    SharedPreferences spref = await SharedPreferences.getInstance();
     var sp = spref.getString('log_id');
     print(sp);
 
-    var data={
-      "id":sp,
-      "district":dropdownvalue,
+    var data = {
+      "id": sp,
+      "district": dropdownvalue,
     };
     print(data);
-            
-    var response = await post(Uri.parse('http://192.168.0.106/Complaint management/api/add-district.php'),body: data);
+
+    var response = await post(
+        Uri.parse(
+            'http://192.168.0.106/Complaint management/api/add-district.php'),
+        body: data);
     print(response.body);
     var res = jsonDecode(response.body);
-    if(res['message']=='updated'){
-      Navigator.push(context, MaterialPageRoute(builder: (context) {
-        return Taluk(id:dropdownvalue);
-      },));
+    if (res['message'] == 'updated') {
+      Navigator.push(context, MaterialPageRoute(
+        builder: (context) {
+          return Taluk(id: dropdownvalue);
+        },
+      ));
     }
-
-}
+  }
 
   @override
   Widget build(BuildContext context) {
-
-    
-
-   
-
     // List of items in our dropdown menu
     var items = [
       'Kozhikode',
       'Kannur',
-      'Ernakulam','Kollam','Palakkad','Thiruvananthapuram','Wayanad',
-      'Alappuzha','Idukki','Kasaragod','Kottayam','Malappuram','Pathanamthitta',
+      'Ernakulam',
+      'Kollam',
+      'Palakkad',
+      'Thiruvananthapuram',
+      'Wayanad',
+      'Alappuzha',
+      'Idukki',
+      'Kasaragod',
+      'Kottayam',
+      'Malappuram',
+      'Pathanamthitta',
       'Thrissur'
     ];
-
-
 
     return Scaffold(
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-            Padding(
+          Padding(
             padding: const EdgeInsets.all(25.0),
             child: DropdownButtonFormField(
-              decoration: const InputDecoration(border: OutlineInputBorder()),
+               validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please Select your district';
+                          }
+                          return null;
+                        },
+              decoration: const InputDecoration(
+                  border: OutlineInputBorder(), labelText: 'Your District'),
               // Initial Value
               value: dropdownvalue,
 
@@ -92,7 +106,10 @@ Future<void> getData() async {
             children: [
               InkWell(
                 onTap: () {
-                  getData();
+                  if (_formKey.currentState!.validate()) {
+                    getData();
+                  }
+                  ;
                 },
                 child: Padding(
                   padding: const EdgeInsets.all(20.0),
@@ -122,7 +139,6 @@ Future<void> getData() async {
               ),
             ],
           ),
-        
         ],
       ),
     );

@@ -19,6 +19,9 @@ class Register extends StatefulWidget {
 }
 
 class _RegisterState extends State<Register> {
+
+    final _formKey = GlobalKey<FormState>();
+
   var name = TextEditingController();
   var email = TextEditingController();
   var mobile = TextEditingController();
@@ -64,74 +67,104 @@ class _RegisterState extends State<Register> {
   Widget build(BuildContext context) {
     return Scaffold(
       
-      body: ListView(
-       
-        children: [
-          SizedBox(height: 100,),
-          Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: TextFormField(
-              controller: name,
-              decoration: InputDecoration(
-                  label: Text('Name'), border: OutlineInputBorder()),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: TextFormField(
-              controller: email,
-              decoration: InputDecoration(
-                  label: Text('Email'), border: OutlineInputBorder()),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: TextFormField(
-              controller: mobile,
-              decoration: InputDecoration(
-                  label: Text('Mobile'), border: OutlineInputBorder()),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: TextFormField(
-              controller: password,
-              decoration: InputDecoration(
-                  label: Text('Password'), border: OutlineInputBorder()),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: InkWell(
-              onTap: () {
-                print('object');
-                postData();
-              },
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(50),
-                  color: Color.fromARGB(255, 107, 162, 222),
-                ),
-                height: 50,
-                width: double.infinity,
-                child: Center(
-                    child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      'Next',
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    Icon(
-                      Icons.arrow_right,
-                      color: Colors.white,
-                    )
-                  ],
-                )),
+      body: Form(
+        key: _formKey,
+        
+        child: ListView(
+         
+          children: [
+            SizedBox(height: 100,),
+            Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: TextFormField(
+                 validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter your Name';
+                          }
+                          return null;
+                        },
+                controller: name,
+                decoration: InputDecoration(
+                    label: Text('Name'), border: OutlineInputBorder()),
               ),
             ),
-          ),
-        ],
+            Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: TextFormField(
+                 validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter your Email';
+                          }
+                          return null;
+                        },
+                controller: email,
+                decoration: InputDecoration(
+                    label: Text('Email'), border: OutlineInputBorder()),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: TextFormField(
+                 validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter your Mobile';
+                          }
+                          return null;
+                        },
+                controller: mobile,
+                decoration: InputDecoration(
+                    label: Text('Mobile'), border: OutlineInputBorder()),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: TextFormField(
+                 validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter your Password';
+                          }
+                          return null;
+                        },
+                controller: password,
+                decoration: InputDecoration(
+                    label: Text('Password'), border: OutlineInputBorder()),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: InkWell(
+                onTap: () {
+                    if (_formKey.currentState!.validate()) {
+                      postData();
+                    }
+                    ;
+                  },
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(50),
+                    color: Color.fromARGB(255, 107, 162, 222),
+                  ),
+                  height: 50,
+                  width: double.infinity,
+                  child: Center(
+                      child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Next',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      Icon(
+                        Icons.arrow_right,
+                        color: Colors.white,
+                      )
+                    ],
+                  )),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

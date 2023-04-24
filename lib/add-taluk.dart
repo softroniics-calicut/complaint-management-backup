@@ -46,7 +46,7 @@ class _TalukState extends State<Taluk> {
 
 
   late String selectedValue;
-
+final _formKey = GlobalKey<FormState>();
   Future<void> addData() async {
       setState(() {
         selectedValue = dropdownValue.split('_')[1];
@@ -92,65 +92,77 @@ class _TalukState extends State<Taluk> {
               );
             }).toList();
 
-            return Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                // Text(snap.data.toString()),
-                Padding(
-                  padding: const EdgeInsets.all(25.0),
-                  child: DropdownButtonFormField(
-                    decoration:
-                        const InputDecoration(border: OutlineInputBorder()),
-                    value: dropdownValue, // Set the value to dropdownValue
-                    icon: const Icon(Icons.keyboard_arrow_down),
-                    items: dropdownItems,
-                    onChanged: (String? newValue) {
-                      
-                         dropdownValue = newValue!;
-                   
+            return Form(
+              key: _formKey,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  // Text(snap.data.toString()),
+                  Padding(
+                    padding: const EdgeInsets.all(25.0),
+                    child: DropdownButtonFormField(
+                      validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please select your Taluk';
+                          }
+                          return null;
+                        },
+                      decoration:
+                          const InputDecoration(border: OutlineInputBorder(),labelText: 'Select your Taluk'),
+                      value: dropdownValue, // Set the value to dropdownValue
+                      icon: const Icon(Icons.keyboard_arrow_down),
+                      items: dropdownItems,
+                      onChanged: (String? newValue) {
+                        
+                           dropdownValue = newValue!;
                      
-                      print(dropdownValue.split('_')[1]);
-
-
-                    },
-                  ),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    InkWell(
-                      onTap: () {
-                        addData();
+                       
+                        print(dropdownValue.split('_')[1]);
+            
+            
                       },
-                      child: Padding(
-                        padding: const EdgeInsets.all(20.0),
-                        child: Container(
-                          child: Center(
-                              child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                'Next',
-                                style: TextStyle(color: Colors.white),
-                              ),
-                              Icon(
-                                Icons.arrow_right,
-                                color: Colors.white,
-                              )
-                            ],
-                          )),
-                          height: 40,
-                          width: 100,
-                          decoration: BoxDecoration(
-                            color: Color.fromARGB(255, 107, 162, 222),
-                            borderRadius: BorderRadius.circular(50),
+                    ),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      InkWell(
+                          onTap: () {
+                            if (_formKey.currentState!.validate()) {
+                              addData();
+                            };
+                          },
+                       
+                        child: Padding(
+                          padding: const EdgeInsets.all(20.0),
+                          child: Container(
+                            child: Center(
+                                child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  'Next',
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                                Icon(
+                                  Icons.arrow_right,
+                                  color: Colors.white,
+                                )
+                              ],
+                            )),
+                            height: 40,
+                            width: 100,
+                            decoration: BoxDecoration(
+                              color: Color.fromARGB(255, 107, 162, 222),
+                              borderRadius: BorderRadius.circular(50),
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  ],
-                ),
-              ],
+                    ],
+                  ),
+                ],
+              ),
             );
           }
         },

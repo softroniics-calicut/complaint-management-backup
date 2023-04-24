@@ -20,6 +20,9 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+
+   final _formKey = GlobalKey<FormState>();
+
   var user = TextEditingController();
   var pass = TextEditingController();
 
@@ -53,60 +56,77 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ListView(
-       
-        children: [
-          Lottie.asset('assets/images/login.json'),
-          Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: TextFormField(
-              controller: user,
-              decoration: InputDecoration(
-                label: Text('Username'),
-                border: OutlineInputBorder()
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: TextFormField(
-              controller: pass,
-              decoration: InputDecoration(
-                 label: Text('Password'),
-                border: OutlineInputBorder()
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: InkWell(
-              onTap: () {
-                getData();
-              },
-              child: Container(
-                decoration: BoxDecoration(borderRadius: BorderRadius.circular(50),
-                color: Color.fromARGB(255, 107, 162, 222),
+      body: Form(
+        key: _formKey,
+        child: ListView(
+         
+          children: [
+            Lottie.asset('assets/images/login.json'),
+            Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: TextFormField(
+                  validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter your Username';
+                          }
+                          return null;
+                        },
+                controller: user,
+                decoration: InputDecoration(
+                  label: Text('Email'),
+                  border: OutlineInputBorder()
                 ),
-                height: 50,
-                width: double.infinity,
-                child: Center(child: Text('Login')),
               ),
             ),
-          ),
-          InkWell(
-             onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder:(context) {
-                  return Register();
-                },));
-              },
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text('Create new account?'),
-              ],
+            Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: TextFormField(
+                  validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter your Email';
+                          }
+                          return null;
+                        },
+                controller: pass,
+                decoration: InputDecoration(
+                   label: Text('Password'),
+                  border: OutlineInputBorder()
+                ),
+              ),
             ),
-          ),
-        ],
+            Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: InkWell(
+                onTap: () {
+                  if (_formKey.currentState!.validate()) {
+                    getData();
+                  };
+                },
+                child: Container(
+                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(50),
+                  color: Color.fromARGB(255, 107, 162, 222),
+                  ),
+                  height: 50,
+                  width: double.infinity,
+                  child: Center(child: Text('Login')),
+                ),
+              ),
+            ),
+            InkWell(
+               onTap: () {
+                  Navigator.push(context, MaterialPageRoute(builder:(context) {
+                    return Register();
+                  },));
+                },
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text('Create new account?'),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
