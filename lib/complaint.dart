@@ -145,9 +145,10 @@ class _ComplaintState extends State<Complaint> {
                     Padding(
                       padding: const EdgeInsets.all(25.0),
                       child: DropdownButtonFormField(
+                          isExpanded: true, 
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Please enter your Username';
+                            return 'Please enter department';
                           }
                           return null;
                         },

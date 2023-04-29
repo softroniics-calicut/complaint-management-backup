@@ -31,7 +31,7 @@ class _LoginState extends State<Login> {
       "user":user.text,
       "pass":pass.text
     };
-    var response = await post(Uri.parse('http://192.168.0.106/Complaint management/api/login.php'),body: data);
+    var response = await post(Uri.parse('${Con.url}login.php'),body: data);
     print(response.body);
     var res = jsonDecode(response.body);
     if(res['message']=='login'){

@@ -62,7 +62,7 @@ final _formKey = GlobalKey<FormState>();
     };
     print(data);
             
-    var response = await post(Uri.parse('http://192.168.0.106/Complaint management/api/taluk.php'),body: data);
+    var response = await post(Uri.parse('${Con.url}taluk.php'),body: data);
     print(response.body);
     var res = jsonDecode(response.body);
    if(res['message']=='updated'){

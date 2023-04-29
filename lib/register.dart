@@ -37,7 +37,7 @@ class _RegisterState extends State<Register> {
 
     var response = await post(
         Uri.parse(
-            'http://192.168.0.106/Complaint management/api/register.php'),
+            '${Con.url}register.php'),
         body: data);
     print(response.body);
     var res = jsonDecode(response.body);

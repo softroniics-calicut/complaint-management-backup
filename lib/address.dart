@@ -7,6 +7,8 @@ import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:http/http.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'constants.dart';
+
 class Address extends StatefulWidget {
   const Address({super.key});
 
@@ -26,7 +28,7 @@ class _AddressState extends State<Address> {
     };
     print(data);
             
-    var response = await post(Uri.parse('http://192.168.0.106/Complaint management/api/address.php'),body: data);
+    var response = await post(Uri.parse('${Con.url}address.php'),body: data);
     var res = jsonDecode(response.body);
     if(res['message']=='updated'){
       Navigator.push(context, MaterialPageRoute(builder: (context) {

@@ -65,7 +65,7 @@ class _VillageState extends State<Village> {
     };
     print(data);
             
-    var response = await post(Uri.parse('http://192.168.0.106/Complaint management/api/village.php'),body: data);
+    var response = await post(Uri.parse('${Con.url}village.php'),body: data);
     var res = jsonDecode(response.body);
     if(res['message']=='updated'){
       Navigator.push(context, MaterialPageRoute(builder: (context) {

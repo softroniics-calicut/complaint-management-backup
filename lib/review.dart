@@ -7,6 +7,8 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'constants.dart';
+
 class Review extends StatefulWidget {
   const Review({super.key});
 
@@ -41,7 +43,7 @@ Future<void> addData() async {
   "id":sp,
   "feedback":feed.text,
  };
- var response = await post(Uri.parse('http://192.168.0.106/Complaint management/api/add-review.php'),body: data);
+ var response = await post(Uri.parse('${Con.url}add-review.php'),body: data);
  print(response.body);
  Fluttertoast.showToast(msg: 'Feedback added');
  Navigator.push(context, MaterialPageRoute(builder:(context) {
