@@ -1,10 +1,14 @@
 import 'dart:convert';
 
 import 'package:complaint_management/home.dart';
+import 'package:complaint_management/review.dart';
+import 'package:complaint_management/star.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:http/http.dart';
+
+import 'constants.dart';
 
 class View extends StatefulWidget {
   View({super.key, required this.id});
@@ -21,7 +25,7 @@ class _ViewState extends State<View> {
     print(data);
     var res = await post(
         Uri.parse(
-            'http://192.168.0.106/Complaint management/api/view-comp.php'),
+            '${Con.url}view-comp.php'),
         body: data);
     var resp = res.body;
     var rs = jsonDecode(resp);
@@ -183,11 +187,11 @@ class _ViewState extends State<View> {
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
               
-                          // ElevatedButton(onPressed: (){
-                          //   Navigator.push(context, MaterialPageRoute(builder: (context) {
-                          //     return Home();
-                          //   },));
-                          // }, child: Text('OK')),
+                          ElevatedButton(onPressed: (){
+                            Navigator.push(context, MaterialPageRoute(builder: (context) {
+                              return ReviewPage(id:snapshot.data[0]['comp_id']);
+                            },));
+                          }, child: Text('Review')),
                         ],
                       ),
                     )
@@ -332,11 +336,11 @@ class _ViewState extends State<View> {
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
               
-                          // ElevatedButton(onPressed: (){
-                          //   Navigator.push(context, MaterialPageRoute(builder: (context) {
-                          //     return Home();
-                          //   },));
-                          // }, child: Text('OK')),
+                          ElevatedButton(onPressed: (){
+                            Navigator.push(context, MaterialPageRoute(builder: (context) {
+                              return Home();
+                            },));
+                          }, child: Text('OK')),
                         ],
                       ),
                     )
@@ -481,11 +485,11 @@ class _ViewState extends State<View> {
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
               
-                          // ElevatedButton(onPressed: (){
-                          //   Navigator.push(context, MaterialPageRoute(builder: (context) {
-                          //     return Home();
-                          //   },));
-                          // }, child: Text('OK')),
+                          ElevatedButton(onPressed: (){
+                            Navigator.push(context, MaterialPageRoute(builder: (context) {
+                              return Home();
+                            },));
+                          }, child: Text('OK')),
                         ],
                       ),
                     )
@@ -630,11 +634,11 @@ class _ViewState extends State<View> {
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
               
-                          // ElevatedButton(onPressed: (){
-                          //   Navigator.push(context, MaterialPageRoute(builder: (context) {
-                          //     return Home();
-                          //   },));
-                          // }, child: Text('OK')),
+                          ElevatedButton(onPressed: (){
+                            Navigator.push(context, MaterialPageRoute(builder: (context) {
+                              return Home();
+                            },));
+                          }, child: Text('OK')),
                         ],
                       ),
                     )
