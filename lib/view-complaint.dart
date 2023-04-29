@@ -338,9 +338,9 @@ class _ViewState extends State<View> {
               
                           ElevatedButton(onPressed: (){
                             Navigator.push(context, MaterialPageRoute(builder: (context) {
-                              return Home();
+                              return ReviewPage(id:snapshot.data[0]['comp_id']);
                             },));
-                          }, child: Text('OK')),
+                          }, child: Text('Review')),
                         ],
                       ),
                     )
@@ -487,9 +487,9 @@ class _ViewState extends State<View> {
               
                           ElevatedButton(onPressed: (){
                             Navigator.push(context, MaterialPageRoute(builder: (context) {
-                              return Home();
+                              return ReviewPage(id:snapshot.data[0]['comp_id']);
                             },));
-                          }, child: Text('OK')),
+                          }, child: Text('Review')),
                         ],
                       ),
                     )
@@ -634,11 +634,11 @@ class _ViewState extends State<View> {
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
               
-                          ElevatedButton(onPressed: (){
+                           ElevatedButton(onPressed: (){
                             Navigator.push(context, MaterialPageRoute(builder: (context) {
-                              return Home();
+                              return ReviewPage(id:snapshot.data[0]['comp_id']);
                             },));
-                          }, child: Text('OK')),
+                          }, child: Text('Review')),
                         ],
                       ),
                     )
