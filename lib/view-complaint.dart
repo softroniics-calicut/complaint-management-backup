@@ -332,11 +332,11 @@ class _ViewState extends State<View> {
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
               
-                          ElevatedButton(onPressed: (){
-                            Navigator.push(context, MaterialPageRoute(builder: (context) {
-                              return Home();
-                            },));
-                          }, child: Text('OK')),
+                          // ElevatedButton(onPressed: (){
+                          //   Navigator.push(context, MaterialPageRoute(builder: (context) {
+                          //     return Home();
+                          //   },));
+                          // }, child: Text('OK')),
                         ],
                       ),
                     )
@@ -481,11 +481,11 @@ class _ViewState extends State<View> {
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
               
-                          ElevatedButton(onPressed: (){
-                            Navigator.push(context, MaterialPageRoute(builder: (context) {
-                              return Home();
-                            },));
-                          }, child: Text('OK')),
+                          // ElevatedButton(onPressed: (){
+                          //   Navigator.push(context, MaterialPageRoute(builder: (context) {
+                          //     return Home();
+                          //   },));
+                          // }, child: Text('OK')),
                         ],
                       ),
                     )
