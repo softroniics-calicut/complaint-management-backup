@@ -2,9 +2,10 @@
 include 'connection.php';
 
 $id = $_POST['id']; 
-$feedback = $_POST['feedback'];
+$star = $_POST['star'];
+$feedback = $_POST['review'];
 
-$sql = mysqli_query($con,"INSERT INTO rating(user_id,review)values('$id','$feedback')");
+$sql = mysqli_query($con,"INSERT INTO rating(user_id,star,review)values('$id','$star','$feedback')");
   
 if ($sql) {
 
