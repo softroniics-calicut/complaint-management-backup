@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:http/http.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'constants.dart';
 
@@ -32,7 +33,19 @@ class _ViewState extends State<View> {
     print(rs);
     return rs;
   }
+Future<void> reOpen() async {
+  SharedPreferences spref = await SharedPreferences.getInstance();
+    var sp = spref.getString('log_id');
+    var data={
+      "comp_id":widget.id,
+      "id":sp,
+    };
+    print(data);
+      var result= await post(Uri.parse('${Con.url}reopen.php'),body: data);
+      var res = result.body;
+      print(res);
 
+}
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -639,6 +652,10 @@ class _ViewState extends State<View> {
                               return ReviewPage(id:snapshot.data[0]['comp_id']);
                             },));
                           }, child: Text('Review')),
+                          SizedBox(width: 20,),
+                          Expanded(child: ElevatedButton(onPressed: (){
+                            reOpen();
+                          }, child: Center(child: Text('Reopen complaint')),),)
                         ],
                       ),
                     )
