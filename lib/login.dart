@@ -34,6 +34,7 @@ class _LoginState extends State<Login> {
     var response = await post(Uri.parse('${Con.url}login.php'),body: data);
     print(response.body);
     var res = jsonDecode(response.body);
+    print(res);
     if(res['message']=='login'){
 
        var id = res["login_id"];
