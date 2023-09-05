@@ -58,7 +58,7 @@ class _HomeState extends State<Home> {
                   onTap: () {
                     Navigator.push(context, MaterialPageRoute(
                       builder: (context) {
-                        return View(id: snap.data[index]['comp_id']);
+                        return View1(id: snap.data[index]['comp_id']);
                       },
                     ));
                   },

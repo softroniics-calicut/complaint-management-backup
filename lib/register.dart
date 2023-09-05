@@ -32,13 +32,11 @@ class _RegisterState extends State<Register> {
       "name": name.text,
       "email": email.text,
       "mobile": mobile.text,
-      "password": password.text
+      "password": password.text  
     };
+    print(data);
 
-    var response = await post(
-        Uri.parse(
-            '${Con.url}register.php'),
-        body: data);
+    var response = await post(Uri.parse(''),body: data);
     print(response.body);
     var res = jsonDecode(response.body);
     print(res);

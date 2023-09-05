@@ -11,15 +11,15 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'constants.dart';
 
-class View extends StatefulWidget {
-  View({super.key, required this.id});
+class View1 extends StatefulWidget {
+  View1({super.key, required this.id});
   String id;
 
   @override
-  State<View> createState() => _ViewState();
+  State<View1> createState() => _View1State();
 }
 
-class _ViewState extends State<View> {
+class _View1State extends State<View1> {
   var sts;
   Future<dynamic> getData() async {
     var data = {"id": widget.id};
