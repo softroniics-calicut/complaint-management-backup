@@ -17,40 +17,41 @@ class Review extends StatefulWidget {
 }
 
 class _ReviewState extends State<Review> {
-
   Future<dynamic> getData() async {
-
- SharedPreferences spref = await SharedPreferences.getInstance();
+    SharedPreferences spref = await SharedPreferences.getInstance();
     var sp = spref.getString('log_id');
 
-var data={
-  "id":sp,
-};
+    var data = {
+      "id": sp,
+    };
 
-  var res = await post(Uri.parse('http://192.168.0.106/Complaint management/api/view-reviews.php'));
-  print(res.body);
-  var result = jsonDecode(res.body);
-  
-  return result; 
-}
+    var res = await post(Uri.parse(
+        'http://192.168.0.106/Complaint management/api/view-reviews.php'));
+    print(res.body);
+    var result = jsonDecode(res.body);
 
-var feed = TextEditingController();
+    return result;
+  }
 
-Future<void> addData() async {
-  SharedPreferences spref = await SharedPreferences.getInstance();
+  var feed = TextEditingController();
+
+  Future<void> addData() async {
+    SharedPreferences spref = await SharedPreferences.getInstance();
     var sp = spref.getString('log_id');
- var data = {
-  "id":sp,
-  "feedback":feed.text,
- };
- var response = await post(Uri.parse('${Con.url}add-review.php'),body: data);
- print(response.body);
- Fluttertoast.showToast(msg: 'Feedback added');
- Navigator.push(context, MaterialPageRoute(builder:(context) {
-   return Review();
- },));
-
- }
+    var data = {
+      "id": sp,
+      "feedback": feed.text,
+    };
+    var response =
+        await post(Uri.parse('${Con.url}add-review.php'), body: data);
+    print(response.body);
+    Fluttertoast.showToast(msg: 'Feedback added');
+    Navigator.push(context, MaterialPageRoute(
+      builder: (context) {
+        return Review();
+      },
+    ));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -59,59 +60,72 @@ Future<void> addData() async {
         backgroundColor: Color.fromARGB(255, 107, 162, 222),
       ),
       body: FutureBuilder(
-        future: getData(),
-        builder: (context,snap) {
-          if(!snap.hasData){
-            return Center(child: CircularProgressIndicator(),);  
-          }
-          else if(snap.connectionState==ConnectionState.waiting){
-            return Center(child: CircularProgressIndicator(),);
-          }
-          return ListView.separated(
-            separatorBuilder: (context, index) {
-              return Divider();
-            },
-            itemCount: snap.data.length,
-           itemBuilder: (context, index) {
-             return ListTile(
-              title: Text(snap.data[index]['review'].toString()),
-              subtitle: Text(snap.data[index]['name'].toString()),
-              trailing: Text(snap.data[index]['date'].toString()),
-             );
-           },
-          );
-        }
-      ),
-      floatingActionButton: FloatingActionButton(onPressed: () {
-        showDialog(
-                    context: context,
-                    builder: (context) {
-                      return AlertDialog(
-                        title: Text('Add your feedback'),
-                        content: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            TextFormField(
-                              controller: feed,
-                              decoration: InputDecoration(
-                                  border: OutlineInputBorder()
-                              ),
-                            ),
-                            SizedBox(height: 30,),
-                            Row(
+          future: getData(),
+          builder: (context, snap) {
+            if (!snap.hasData) {
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            } else if (snap.connectionState == ConnectionState.waiting) {
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+            return ListView.separated(
 
-                              children: [
-                                SizedBox(width: 170,),
-                                FloatingActionButton(onPressed: (){
-                                  addData();
-                                },child: Icon(Icons.send),backgroundColor: Color.fromARGB(255, 107, 162, 222),),
-                              ],
-                            )
-                          ],
-                        ),
-                      );
-                    });
-      },child: Icon(Icons.add),backgroundColor: Color.fromARGB(255, 107, 162, 222),
+              
+              separatorBuilder: (context, index) {
+                return Divider();
+              },
+              itemCount: snap.data.length,
+              itemBuilder: (context, index) {
+                return ListTile(
+                  title: Text(snap.data[index]['review'].toString()),
+                  subtitle: Text(snap.data[index]['name'].toString()),
+                  trailing: Text(snap.data[index]['date'].toString()),
+                );
+              },
+            );
+          }),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          showDialog(
+              context: context,
+              builder: (context) {
+                return AlertDialog(
+                  title: Text('Add your feedback'),
+                  content: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      TextFormField(
+                        controller: feed,
+                        decoration:
+                            InputDecoration(border: OutlineInputBorder()),
+                      ),
+                      SizedBox(
+                        height: 30,
+                      ),
+                      Row(
+                        children: [
+                          SizedBox(
+                            width: 170,
+                          ),
+                          FloatingActionButton(
+                            onPressed: () {
+                              addData();
+                            },
+                            child: Icon(Icons.send),
+                            backgroundColor: Color.fromARGB(255, 107, 162, 222),
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
+                );
+              });
+        },
+        child: Icon(Icons.add),
+        backgroundColor: Color.fromARGB(255, 107, 162, 222),
       ),
     );
   }
